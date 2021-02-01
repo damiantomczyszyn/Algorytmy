@@ -1,0 +1,34 @@
+#include <iostream>
+using namespace std;
+
+    unsigned long l=0;
+    unsigned int n, i;
+
+void MergeSort(int p, int k,unsigned int d[], unsigned int f[])
+{
+  unsigned int s,i1,i2,i;
+
+  s = (p + k + 1) / 2;
+  if(s - p > 1) MergeSort(p, s - 1,d, f);
+  if(k - s > 0) MergeSort(s, k, d, f);
+  i1 = p; i2 = s;
+  for(i = p; i <= k; i++)
+  if((i1 == s) || ((i2 <= k) && (d[i1] > d[i2]))) { f[i]=d[i2++]; l+=(s-i1);} else f[i]=d[i1++];
+  for(i = p; i <= k; i++) d[i] = f[i];
+}
+
+
+int main()
+{
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+        cin>>n;
+        unsigned int d[n],f[n];
+
+  for(i = 0; i < n; i++) cin>>d[i];
+
+  MergeSort(0,n-1,d,f);
+  cout << l;
+  return 0;
+}
