@@ -1,0 +1,12 @@
+
+Proszę Państwa,
+
+od zadania czwartego włącznie należy dokonywać dodatkowej optymalizacji operacji wejścia/wyjścia. Należy wywołać na początku zadania:
+
+std::ios_base::sync_with_stdio(false);
+std::cin.tie(nullptr);
+std::cout.tie(nullptr);
+
+ 
+
+Oraz stosować "\n" zamias std::endl kończąc linię.
