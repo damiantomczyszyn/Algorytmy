@@ -1,0 +1,74 @@
+﻿złożoność obliczeniowa
+
+O(1)*O(n)+O(1)*(n* O(1))=2*O(n)=O(n)
+
+
+
+
+
+złożoność pamięciowa O(n) jedna tablica
+
+
+
+#include <iostream>
+using namespace std;
+struct pracownik
+{
+    string name;
+     int podwladni;
+     int poczatektablicypodwladnych;   
+};
+void dodajpracownika(pracownik *tab, int *p, int *k, int *n)		//procedura wywolywana rekurencyjnie poziomami waznosci pracownikow tyle rzy ile jest pozimow pracownikow jednak lacznie n* O(1) dla kazdego pracownika = O(n)
+{
+    int ilopo = 0;							//zlicza podwladnych dla danego poziomu
+    while (*p <= *k)							//dopuki początek wprowadzania jest nie dalej niż koniec
+    {
+        cin >> (tab + *p)->podwladni >> (tab + *p)->name;		//nazwa pracownika i ilość podwladnych
+        (tab + *p)->poczatektablicypodwladnych = *k + ilopo;		//ustawia poczatek obszaru podwaldnych = koniec obszaru obecnego poziomu+ilosc juz zgloszonych powladnych+koniec
+        ilopo += (tab + *p)->podwladni;					//zwieksza ilosc juz zgloszonych podwladnych
+        (*p)++;								//zwieksza adres wprowadzonych pracownikow
+        (*n)--;    							//odlicza pracownikow do wprowadzenia
+        if (*n == 0) {							//jesli wprowadzono wszystkich zakoncz
+        ilopo = 0;
+        return;
+    }
+    }
+    *k += ilopo;							//po wprowadzeniu poziomu prawcowników przeowa adres konca do konca obszaru podwladnych nastepnego poziomu
+
+    if (ilopo!=0)							//po wprowadzeniu poziom upracownikow sprwdza czy sa jacys podwladni do wprowadzenia
+        dodajpracownika(tab, p, k, n );
+        return ;
+}
+void wypisz(pracownik* tab, int* n, int p)				//procedura wyszukuje i wypisuje każdego prcownika 1 raz i dla każdego jednokrotnie powtarza ten sam ciąg alternatyny cią instrukcji n*O(1)
+{
+    if (p+1 > * n)
+        return;    
+    if ((tab + p)->podwladni == 0) 
+    {
+        cout << (tab + p)->name << "\n";
+    return;
+    }
+    for (int i = 1; i <= (tab+p)->podwladni; i++)
+    {       
+        if (i + (tab + p)->poczatektablicypodwladnych < *n)
+        {
+        wypisz(tab,n,i+ (tab + p)->poczatektablicypodwladnych); 
+        }
+   }
+    cout << (tab + p)->name<<"\n";
+    return;
+}
+int main()
+{
+std::ios_base::sync_with_stdio(false);
+std::cin.tie(nullptr);
+std::cout.tie(nullptr);
+int p = 0, k = 0, n{}, po{};
+ int ilo = 0;
+    string name;
+    cin >> n;
+    po = n;
+    pracownik* tab = new pracownik[n];    
+    dodajpracownika(tab, &p, &k, &n);       	//jendokrotnie wywołana funkcja O(1)
+    wypisz(tab, &po,0);				//jendokrotnie wywołana funkcja O(1)
+}

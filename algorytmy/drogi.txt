@@ -1,0 +1,59 @@
+#include <queue>
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+
+int main()
+{
+    std::ios_base::sync_with_stdio(false);
+
+    unsigned short int n, m, s, w, w1, dr = 0, nowa;
+    bool wsk1;
+    queue < int > kole;
+    cin >> n >> m >> s >> w;
+    vector<int> *t=new vector<int>[n];
+    bool b[n][2]{};
+  
+    for (dr = 0; dr < m; dr++)
+    {
+        cin >> n >> w1;
+        t[n].push_back(w1);
+        t[w1].push_back(n);
+    }
+    wsk1=1;
+    m = 0;
+    dr = 0;
+    kole.push(s);
+   
+    nowa=0;
+     s=1;
+    while (!kole.empty())
+    {
+        n = kole.front();
+        kole.pop();
+        if(b[n][1]==1) {
+            s--;
+            continue;} else b[n][1] = 1;
+        if(!s) { dr++; s=nowa; nowa=0;} 
+         s--;
+        cout<<"\n"<<n<<" "<<dr<<" "<<s<<"  "<<nowa<<" "<<m<<" "<<kole.size();
+        
+        
+        if (w < 2 * (dr+1)) wsk1=0;
+        for (vector<int>::iterator iter = t[n].begin(); iter != t[n].end(); iter++)
+        {
+            if (b[*iter][1] == 0 and b[*iter][0]==0)
+            {
+                kole.push(*iter);
+                m +=wsk1;
+                nowa++;
+                b[*iter][0]=1;
+            }
+        }
+        
+    }
+    cout << "\n" << m << " " << dr;
+    return 0;
+}

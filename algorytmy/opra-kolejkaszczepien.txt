@@ -1,0 +1,122 @@
+złożoność obliczeniowa
+
+
+program tworzy 2 tablice dynamczne 	xx - numer kolejnego wprowadzanego pacjenta
+					px - -priorytet pacjenta
+					nx - numer id pacjenta
+tablice wilekości początkowej 1023 powiększane dwukrotnie w razie całkowiteog wypełnienia
+W głownej pętli d-krotnie (ilość dni) powtarza się wprowadzanie i wypisywanie grupy pacjentów. Dla każdego pacjenta wykonywana jest taka sama sekwencja niezależnie od dnia. Łącznie dla wszyskich pacjentów: 
+		wprowadzenie w pętli n nowych pacjentów, pętla składa się z:
+			wprowadzenie id i priorytetu -	O(1)
+			przesiewu w górę kopca		O(log n)
+			opcjonalnie(relatywnie żadko 1/n razy) powiększenie tablicy 2x i przepisanie - O(n)
+	powyższe łącznie : O(1) + O(log n) + 1/n * O(n) = O(log n)
+ 		cała pętla - O(n)*O(log n) = O(n*log n)
+	
+	kolejną częścią jest pobranie z kopca s elementów w pętli:
+		wyświetlenie najwyższego elementu i wpisanie ostatniego - O(1)
+		przesianie w dół 					- O(log n)
+						łącznie O(1) + O(log n) = O(log n)
+	pętla s razy O(s * log n)
+	razem pętla wprowadzania i wypisywania O(n*log n)+O(s*log n) = O(n*log n)
+                           całość O(n*log n)
+
+
+
+
+
+złożoność pamięciowa - algorytm kopcowania sortuje w miejscu - trzy tablice makszymalnie wymiaru n - O(3*n) = O(n)
+			
+				
+
+
+
+
+
+
+#include <iostream>
+    using namespace std;
+
+   int main()
+    {
+
+        int s, n, k = 0, k1=1023, d,i,j, num=0;
+        cin >> s >> d;
+        unsigned int *tmp, *tmp1;
+        unsigned short *tmp2;
+        unsigned int* xx=new unsigned int[1023]{};
+        unsigned short* px=new unsigned short[1023]{};
+        unsigned int* nx=new unsigned int[1023]{};
+
+        while(d--)
+        {
+            cin >> n;
+
+            while(n--)
+            {
+                i=k;
+                xx[k]=num++;
+                cin >> nx[k] ;
+                cin>> px[k++];
+
+                j = (i - 1) / 2;
+                while (i && ((px[i] < px[j]) ||((px[i] == px[j]) && (xx[i] < xx[j]))))       //przesiew gora
+                {
+                    swap(px[i], px[j]);
+                    swap(xx[i], xx[j]);
+                    swap(nx[i], nx[j]);
+                    i = j;
+                    j = (i - 1) / 2;
+                }
+                if(k==k1)
+                {
+                    k1=2*k1+1;
+                    tmp=new unsigned int[k1];
+                    tmp1=new unsigned int[k1];
+                    tmp2=new unsigned short[k1];
+                    for(i=0;i<k;i++){ tmp[i]=xx[i]; tmp1[i]=nx[i]; tmp2[i]=px[i];}
+                    //delete xx;
+                    //delete px;
+                    xx=tmp;
+                    nx=tmp1;
+                    //delete nx;
+                    px=tmp2;
+                }
+            }
+            
+
+            if(k){
+            unsigned int s1 = s;
+        
+            while (s1 && k)
+            {
+
+                cout << " " << nx[0];
+                px[0] = px[--k];
+                nx[0] = nx[k];
+                xx[0] = xx[k];
+                s1--;
+
+                i = 0;
+                j = 1;
+            while(j<k)
+            {
+                if((j<k-1)&&((px[j]>px[j+1])||((px[j]==px[j+1])&&(xx[j]>xx[j+1])))) j++;
+                if((px[i]>px[j])||((px[i]==px[j])&&(xx[i]>xx[j]))) 
+                {
+                    swap( px[i] , px[j] );
+                    swap( xx[i] , xx[j] );
+                    swap( nx[i] , nx[j] );
+                    i=j;
+                    j=2*i+1;
+                } else break;
+                }
+            }
+
+            cout << "\n";
+            }
+            
+        }
+
+        return 0;
+    }

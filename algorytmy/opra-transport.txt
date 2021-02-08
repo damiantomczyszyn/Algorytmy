@@ -1,0 +1,77 @@
+#include <queue>
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+    std::ios_base::sync_with_stdio(false);
+    //std::cin.tie(nullptr);
+   // std::cout.tie(nullptr);
+    unsigned int dr = 0, m;
+    unsigned short  n, s, nowa, w;
+   
+    queue < unsigned short  > kole;
+    cin >> n >> m >> s >> w;
+    vector<unsigned short >* t = new vector<unsigned short >[n];
+    bool b[n]{ 0 };
+    for (dr = 0; dr < m; dr++)					//dla ka¿degowierzcholka okreœla listê wierzcholków - opisujen m drog -O(m)
+    {
+        cin >> n >> nowa;
+        
+        t[n].push_back(nowa);
+      
+        t[nowa].push_back(n);
+    }
+    
+    m = 0;
+    dr = 0;
+    kole.push(s);
+    nowa = 0;
+    s = 1;
+    while (!kole.empty()) {
+        n = kole.front();
+        kole.pop();
+
+
+        b[n] = 1;
+        if (!s)							//jesli wszystkie z poziomu zbadane zwiêkszamy dlugoæ drogi
+        {
+            dr++; 
+            s = nowa;						//nowa iloœæ wierzcholkow do zbadania
+            nowa = 0;						//nowy licznik weierzcholkow do zbadania
+        }
+        s--;							//badamy kolejny wierzcholek
+
+        if (w < 2 * (dr + 1)) 					//jeœli odlegloœæ wierzcholka nie przekracza gornej granicy to
+        { 
+       
+        for (vector<unsigned short>::iterator iter = t[n].begin(); iter != t[n].end(); iter++)		//wszystkich s¹siadów 
+                {
+            if (!b[*iter])										//jeœli nie s¹ w kolejce
+            {
+                kole.push(*iter);									//wpisujemy do kolejki
+                nowa++;											//zwiekszamy ilosc wierzcholkow nastêpnej warstwy(odleglosci)
+                b[*iter] = 1;										//i oznaczmy wierzcholek jako wpisany w kolejke
+            }
+               }
+        }
+
+        else{
+            for (vector<unsigned short>::iterator iter = t[n].begin(); iter != t[n].end(); iter++)	//jesli odleglosc przekracza robimy to smo plus zwiekszmy m
+            {
+                if (!b[*iter])										//instr if wykona siê ³¹cznie w obu pêtlach (tej i wy¿szej) tyle razy z iloma wierzcho³kami œiê ³¹czy a wiêc 2*m
+                {
+                    kole.push(*iter);									//kolejne instrukcje wykonaj¹ siê ³¹cznie n razy
+                    m++;
+                    nowa++;
+                    b[*iter] = 1;
+                }
+            }
+        }
+    }
+    cout << dr << " " << m << "\n";
+    return 0;
+}
+
+
+ca³kowita z³ozonoœæ obliczeniowa : poniewa¿ 2*m>n (conajmniej jedna droga z ka¿dego wierzcho³ka) to O(2m) =O(m)
