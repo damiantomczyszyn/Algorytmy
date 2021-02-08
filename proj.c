@@ -33,7 +33,7 @@ short int x=0;
 unsigned char znaki_odebrane[15];
 unsigned char licznik2=0;
 unsigned char licznik3=0;
-
+unsigned char zapiszhistorie; //NOWO DODANA ZA MALO PAMIECI ALE WYMAGANA DO POWROTU BY PONOWNIE WPISYWAC
 unsigned char key;//stan klawiatury
 
 
@@ -160,7 +160,7 @@ wyswietlana=4;   }
 
 void INIT()
 {
-
+zapiszhistorie=(unsigned char)historia ;
 TMOD=0b00100001;//T1 off, T0-16bit
 TR0=1;
 TL0=0b00000000;
@@ -1177,8 +1177,11 @@ indeksh=0;
 
 void LCDERR()
 {// indeksh=0;
+historia=(__xdata unsigned char*) zapiszhistorie;
 errindeks=0;
-
+indeksh=0;//przeniesienie tego nic nie zmienilo
+if(ilerozkazow<7)
+ilerozkazow++;
 poczekaj();
 while(znaki_odebrane[errindeks]!='-')
 {
@@ -1222,7 +1225,7 @@ poczekaj();
 }
 if(ilerozkazow<7)
 ilerozkazow++;
-indeksh=0;
+zapiszhistorie=(unsigned char)historia;
 
 }
 
