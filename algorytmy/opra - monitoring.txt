@@ -54,8 +54,10 @@ int main()
         for(int j=0;j<n;j++)							//pętla sprawdzenia możliwości rozmieszczenia  - O(n)
         {
             k=d[j];
-            while(k<=d[n+j]&&w[k]) k++;
-            if(k<=d[n+j]) w[k]++;else {cout<<"NIE\n";goto stop;}
+            while(k<=d[n+j]&&w[k]) 
+				k++;
+			if(k<=d[n+j])
+				w[k]++;else {cout<<"NIE\n";goto stop;}
         }
         cout<<"TAK\n";								// przy pozytywnych wszystkich pokojach
 stop:

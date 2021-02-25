@@ -65,7 +65,7 @@ std::cout.tie(nullptr);
             q--;
             k++;
         }
-    tmp--;
+		tmp--;
     }
     return 0;
 }
