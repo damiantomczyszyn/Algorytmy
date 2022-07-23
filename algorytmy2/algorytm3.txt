@@ -1,0 +1,43 @@
+Treść zadania
+Choć nazwa weekend majowego wskazuje, że są to: piątkowe popołudnie, sobota oraz niedziela, długi weekend bardzo rzadko wówczas wypada. Pierwszego maja obchodzone jest Święto Pracy, a właściwie Międzynarodowy Dzień Solidarności Ludzi Pracy. Drugi maja to Święto Flagi Rzeczpospolitej Polskiej, zaś trzeciego – Konstytucja 3 Maja.
+
+
+Długi weekend majowy w tym roku nie jest taki długi i wcale nie spowoduje, że dłużej odpoczniemy (wypada w sobotę, niedzielę i poniedziałek). Nie zmienia to faktu, że w zbliżającym się okresie popularne są wyjazdy na krótkie wczasy, a te często związane są z podróżą. Aby trasa była przyjemniejsza, trzeba ją urozmaicić muzyką. Muzyka towarzyszy nam na co dzień i ma ogromny wpływ na nastrój człowieka. Oczywiście należy wykluczyć tak zwany syndrom Mozarta, to naukowy mit: nie można trwale zwiększyć swojego IQ tylko poprzez słuchanie utworów słynnego wiedeńskiego klasyka.
+
+
+Wniosek jest jeden, w tym roku podczas weekendu majowego, ani za długo nie odpoczniemy, ani prawdopodobnie nie zwiększymy swojego ilorazu inteligencji. Mimo to podczas podróży warto słuchać czegoś, co lubimy. W tym celu, należy przygotować odpowiednią playlistę. Trudno jest przygotować idealną listę przebojów w jeden wieczór, bo czasami jakiś utwór wypadnie nam z głowy. Przygotowywana lista przebojów powinna być uszeregowana od utworów, które najbardziej lubimy do tych mniej lubianych. Co ważne, miejsca na liście dynamicznie się zmieniają, np. jeśli jakiś utwór znudzi się nam jeszcze przed wyjazdem. Oczywiście zrozumiała jest także sytuacja, gdy zdecydujemy się zamienić dwie piosenki miejscami lub będziemy chcieli dopisać kolejną do naszej playlisty. Naszym zadaniem jest przygotowanie programu, który pomoże nam przygotować taką listę utworów muzycznych.
+
+
+WEJŚCIE
+Algorytm na wejściu otrzymuję liczbę naturalną N, która mówi o początkowej liczbie utworów na liście. Następnie w N liniach program otrzymuje ciąg znaków str, które są nazwami przebojów. Zakładamy, że pierwszy utwór na liście to ten najbardziej lubiany. W kolejnym kroku program otrzymuje liczbę naturalną K będącą liczbą operacji do wykonania. Na koniec w K liniach program otrzymuje opisy operacji, które powinien wykonać. Wyróżniamy trzy operacja, każda z nich zaczyna się od odpowiedniego znaku (a, m i r), a po nim następują odpowiednie argumenty:
+a str - dodanie utworu o nazwie str na koniec listy,
+m str value - przesunięcie utworu o nazwie str na liście o value miejsc, w górę dla value > 0 lub w dół dla value < 0,
+r str1 str2 - zamiana miejscami utworu o nazwie str1 z utworem o nazwie str2.
+0 < N, K, value <= 50000
+str, str1, str2 - ciągi znaków (dla ułatwienia zakładamy, że nie zawierają znaków białych)
+
+WYJŚCIE
+Na wyjściu program powinien wypisać uszeregowaną listę utworów poczynając od utworu najbardziej lubianego.
+
+WYMAGANIA
+Zadanie ma zostać rozwiązane przy pomocy samodzielnie zaimplementowanych drzew czerwono-czarnych bez wykorzystania biblioteki STL.
+
+PRZYKŁADOWE DANE WEJŚCIOWE
+5
+StateOfMine-WasteMyTime
+Słoń-WojnaTotalna
+Sia-Alive
+ChrisBrown-FineByMe
+NoResolve-GetMeOut
+4
+r ChrisBrown-FineByMe NoResolve-GetMeOut
+a Madilyn-Rockabye
+m Madilyn-Rockabye 2
+m Sia-Alive -1
+PRZYKŁADOWE DANE WYJŚCIOWE
+StateOfMine-WasteMyTime
+Słoń-WojnaTotalna
+Madilyn-Rockabye
+Sia-Alive
+NoResolve-GetMeOut
+ChrisBrown-FineByMe
